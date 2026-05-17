@@ -1,13 +1,13 @@
 export interface User {
-  _id: string;
-  name: string;
-  email: string;
-  phone: string;
-  avatar: string;
-  addresses: Address[];
+  _id?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  avatar?: string;
+  addresses?: Address[];
   isAdmin?: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Address {
@@ -86,4 +86,13 @@ export interface Order {
   deliveryOtp: string;
   isPaid: boolean;
   createdAt: string;
+}
+
+export interface SignInFormData {
+  email: string;
+  password: string;
+}
+
+export interface SignUpFormData extends SignInFormData {
+  name: string;
 }
