@@ -1,6 +1,9 @@
 import Feature from "@/components/home/feature";
 import Hero from "@/components/home/hero";
 import HomeCategories from "@/components/home/home-categories";
+import Newsletter from "@/components/home/news-letter";
+import PopularProducts from "@/components/home/popular-product";
+import PromoBanner from "@/components/home/promo-banner";
 
 export default function HomePage() {
   return (
@@ -8,6 +11,9 @@ export default function HomePage() {
       <Hero />
       <Feature />
       <HomeCategories />
+      <PopularProducts />
+      <PromoBanner />
+      <Newsletter />
     </div>
   );
 }

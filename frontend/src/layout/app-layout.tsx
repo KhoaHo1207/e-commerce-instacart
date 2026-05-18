@@ -1,4 +1,5 @@
 import Banner from "@/components/banner";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -15,6 +16,7 @@ export default function AppLayout() {
       <main className="min-h-screen">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }

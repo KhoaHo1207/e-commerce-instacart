@@ -1,4 +1,3 @@
-import type { User } from "@/types";
 import { cn } from "@/utils/cn";
 import {
   ArrowRightIcon,
