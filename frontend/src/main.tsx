@@ -10,12 +10,15 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import ToastProvider from "./providers/toast-provider.tsx";
+import CartProvider from "./context/cart-context.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
-      <ToastProvider />
+      <CartProvider>
+        <App />
+        <ToastProvider />
+      </CartProvider>
     </BrowserRouter>
   </StrictMode>,
 );

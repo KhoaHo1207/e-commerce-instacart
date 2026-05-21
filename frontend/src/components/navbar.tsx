@@ -1,3 +1,4 @@
+import useCart from "@/hooks/use-cart";
 import { cn } from "@/utils/cn";
 import {
   ArrowRightIcon,
@@ -47,10 +48,7 @@ export default function Navbar() {
 
   const user = null;
 
-  const { cartCount, setIsCartOpen } = {
-    cartCount: 5,
-    setIsCartOpen: (_data: any) => {},
-  };
+  const { cartCount, setIsCartOpen } = useCart();
 
   const navigate = useNavigate();
 
@@ -79,7 +77,7 @@ export default function Navbar() {
   //   }, [debouncedSearchQuery]);
 
   return (
-    <nav className="sticky-0 border-app-border top-0 z-50 border-b bg-white">
+    <nav className="border-app-border sticky top-0 z-50 border-b bg-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Logo />

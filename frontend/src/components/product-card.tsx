@@ -1,3 +1,4 @@
+import useCart from "@/hooks/use-cart";
 import type { Product } from "@/types";
 import { Plus, Star } from "lucide-react";
 import toast from "react-hot-toast";
@@ -6,27 +7,46 @@ import { useNavigate } from "react-router-dom";
 export default function ProductCard({ product }: { product: Product }) {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
 
+  const { addToCart } = useCart();
+
   const handleAddToCart = (
     e: React.MouseEvent<HTMLButtonElement>,
     product: Product,
   ) => {
     e.preventDefault();
     e.stopPropagation();
+    addToCart(product);
     toast.success(`${product.name} added to cart`);
   };
 
   const navigate = useNavigate();
   return (
     <div
-      className="group animate-fade-in cursor-pointer overflow-hidden rounded-2xl bg-white shadow transition-all duration-300 hover:shadow-md"
+      className={`group animate-fade-in relative cursor-pointer overflow-hidden rounded-2xl bg-white shadow transition-all duration-300 hover:shadow-md ${
+        product.stock === 0 ? "opacity-100" : ""
+      }`}
       onClick={() => navigate(`/product/${product._id}`)}
     >
+      {/* OUT OF STOCK */}
+      {product.stock === 0 && (
+        <>
+          {/* <div className="absolute inset-0 z-10 bg-black/10 backdrop-blur-[1px]" /> */}
+
+          {/* Ribbon */}
+          <div className="absolute top-5 -right-10 z-20 rotate-45 bg-red-500 px-10 py-1 text-[10px] font-bold tracking-wider text-white uppercase shadow-md">
+            Out of stock
+          </div>
+        </>
+      )}
+
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-cover p-4 transition-all duration-300 group-hover:p-2"
+          className={`h-full w-full object-cover p-4 transition-all duration-300 ${
+            product.stock === 0 ? "group-hover:p-2" : "group-hover:p-2"
+          }`}
         />
 
         {/* Badge */}
@@ -45,7 +65,6 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.name}
         </h3>
 
-        {/* Ratings */}
         {product.rating > 0 && (
           <div className="mb-2 flex items-center gap-1">
             <Star className="text-app-warning fill-app-warning size-3" />
@@ -66,9 +85,11 @@ export default function ProductCard({ product }: { product: Product }) {
             {currency}
             {product.price.toFixed(1)}
           </span>
+
           <span className="text-app-text-light block text-xs">
             /{product.unit}
           </span>
+
           {product.originalPrice > product.price && (
             <span className="text-app-text-light ml-1.5 text-xs line-through">
               {currency}
@@ -77,9 +98,9 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
 
-        {/* Add Button */}
         <button
-          className="bg-app-orange flex-center hover:bg-app-orange-dark size-7 shrink-0 rounded-full text-white transition-colors active:scale-95"
+          disabled={product.stock === 0}
+          className="bg-app-orange flex-center hover:bg-app-orange-dark size-7 shrink-0 rounded-full text-white transition-colors active:scale-95 disabled:pointer-events-none disabled:bg-zinc-300"
           onClick={(e) => handleAddToCart(e, product)}
         >
           <Plus className="size-3.5" />

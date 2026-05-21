@@ -96,3 +96,15 @@ export interface SignInFormData {
 export interface SignUpFormData extends SignInFormData {
   name: string;
 }
+
+export interface CartContextType {
+  items: CartItem[];
+  addToCart: (product: Product, quantity?: number) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
+  cartCount: number;
+  cartTotal: number;
+  isCartOpen: boolean;
+  setIsCartOpen: (open: boolean) => void;
+}
