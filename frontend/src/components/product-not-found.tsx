@@ -1,5 +1,5 @@
 interface props {
-  clearFilters: () => void;
+  clearFilters?: () => void;
 }
 
 export default function ProductNotFound({ clearFilters }: props) {
