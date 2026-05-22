@@ -1,10 +1,22 @@
 import { dummyProducts } from "@/assets/assets";
+import DummyReviewsSection from "@/components/dummy-reviews-section";
 import SpinLoading from "@/components/loading/spin-loading";
+import ProductCard from "@/components/product-card";
 import useCart from "@/hooks/use-cart";
 import type { Product } from "@/types";
 import { handleMessageError } from "@/utils/error";
-import { ArrowLeftIcon, HomeIcon, LeafIcon, StarIcon } from "lucide-react";
-import { use, useEffect, useState } from "react";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  CheckIcon,
+  HomeIcon,
+  LeafIcon,
+  MinusIcon,
+  PlusIcon,
+  ShoppingCartIcon,
+  StarIcon,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -12,7 +24,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [localQuantity, setLocalQuantity] = useState<number>(1);
+  const [localQuantity, setLocalQuantity] = useState<number>(0);
 
   const { id } = useParams<{ id: string }>();
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
@@ -45,9 +57,31 @@ export default function ProductPage() {
   const cartItem = items.find((item) => item?.product?._id === product?._id);
   const inCart = !!cartItem;
 
-  const displayQuantity = inCart ? cartItem?.quantity : localQuantity;
+  // const displayQuantity = inCart ? cartItem?.quantity : localQuantity;
 
   const categoryLabel = product?.category.replace(/-/g, " ");
+
+  const handleAddToCart = () => {
+    if (localQuantity <= 0) {
+      toast.error("Quantity must be greater than 0");
+      return;
+    }
+    if (localQuantity + (cartItem?.quantity || 0) > product.stock) {
+      toast.error(
+        `Maximum ${product.stock - (cartItem?.quantity || 0)} items can be added to cart`,
+      );
+      return;
+    }
+    if (!inCart) {
+      addToCart(product, localQuantity);
+      toast.success(`${product.name} added to cart`);
+    } else {
+      updateQuantity(product._id, cartItem!.quantity + localQuantity);
+      toast.success(`${product.name} added to cart`);
+    }
+    setLocalQuantity(0);
+  };
+
   useEffect(() => {
     fetchProduct();
   }, [id, navigate]);
@@ -153,12 +187,96 @@ export default function ProductPage() {
                   </span>
                 )}
               </div>
+
+              {/* Description */}
+              <p className="text-app-text-light mb-6 text-sm leading-relaxed">
+                {product?.description}
+              </p>
+
+              {/* Stock */}
+              <div className="mb-6">
+                {product.stock > 0 ? (
+                  <span className="text-app-success flex items-center gap-1 text-sm">
+                    <CheckIcon className="size-4" /> In Stock ({product.stock}{" "}
+                    available)
+                  </span>
+                ) : (
+                  <span className="text-app-error text-sm font-medium">
+                    Out Of Stock
+                  </span>
+                )}
+              </div>
+
+              {/* Display the quantity in cart */}
+              {inCart && (
+                <div className="mb-6">
+                  <span className="text-app-text-light text-sm font-medium">
+                    In Cart: {cartItem?.quantity}
+                  </span>
+                </div>
+              )}
+              {/* Quantity + Add To Cart */}
+              {product.stock > 0 && (
+                <div className="flex items-center gap-3">
+                  {/* Quantity */}
+                  <div className="border-app-border flex items-center overflow-hidden rounded-xl border">
+                    <button
+                      className="hover:bg-app-cream p-3 transition-colors"
+                      onClick={() => setLocalQuantity(localQuantity - 1)}
+                      disabled={localQuantity <= 0}
+                    >
+                      <MinusIcon className="size-4" />
+                    </button>
+                    <span className="min-w-[40px] px-5 text-center text-sm font-semibold">
+                      {localQuantity}
+                    </span>
+                    <button
+                      className="hover:bg-app-cream p-3 transition-colors"
+                      onClick={() => setLocalQuantity(localQuantity + 1)}
+                    >
+                      <PlusIcon className="size-4" />
+                    </button>
+                  </div>
+                  {/* Add to Cart */}
+                  <button
+                    className="flex-center bg-app-orange hover:bg-app-orange-dark flex-1 gap-2 rounded-xl py-3 font-semibold text-white transition-colors active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingCartIcon className="size-4" />
+                    {inCart ? "Added to cart" : "Add to cart"}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
         {/* Customer Preview Section */}
-
+        {product.reviewCount > 0 && <DummyReviewsSection product={product} />}
         {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <section className="mt-12 mb-44">
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex flex-col">
+                <h2 className="text-2xl font-semibold">Related Products</h2>
+                <p className="text-app-text-light mt-1 text-sm">
+                  More from {categoryLabel}
+                </p>
+              </div>
+              <Link
+                to={`/products?category=${product.category}`}
+                className="text-app-orange hover:text-app-orange-dark flex items-center gap-1 text-sm font-semibold transition-colors"
+              >
+                View All <ArrowRightIcon className="size-4" />
+              </Link>
+            </div>
+
+            <div className="xl:gap- grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+              {relatedProducts.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
