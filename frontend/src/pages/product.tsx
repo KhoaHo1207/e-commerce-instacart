@@ -1,6 +1,6 @@
 import { dummyProducts } from "@/assets/assets";
 import DummyReviewsSection from "@/components/dummy-reviews-section";
-import SpinLoading from "@/components/loading/spin-loading";
+import LoadingSpin from "@/components/loading/loading-spin";
 import ProductCard from "@/components/product-card";
 import useCart from "@/hooks/use-cart";
 import type { Product } from "@/types";
@@ -30,7 +30,7 @@ export default function ProductPage() {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
   const navigate = useNavigate();
 
-  const { items, addToCart, updateQuantity, removeFromCart } = useCart();
+  const { items, addToCart, updateQuantity } = useCart();
 
   const fetchProduct = async () => {
     try {
@@ -86,7 +86,7 @@ export default function ProductPage() {
     fetchProduct();
   }, [id, navigate]);
 
-  if (loading) return <SpinLoading />;
+  if (loading) return <LoadingSpin />;
   return (
     <div className="min-h-screen">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">

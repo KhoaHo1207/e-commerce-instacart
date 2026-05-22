@@ -1,6 +1,6 @@
 import { categoriesData, dummyProducts } from "@/assets/assets";
 import FilterPanel from "@/components/filter-panel";
-import SpinLoading from "@/components/loading/spin-loading";
+import LoadingSpin from "@/components/loading/loading-spin";
 import ProductCard from "@/components/product-card";
 import ProductNotFound from "@/components/product-not-found";
 import type { Product } from "@/types";
@@ -13,7 +13,7 @@ import { Link, useSearchParams } from "react-router-dom";
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
 
@@ -137,7 +137,7 @@ export default function ProductsPage() {
 
             {/* Product Grid */}
             {loading ? (
-              <SpinLoading />
+              <LoadingSpin />
             ) : products.length === 0 ? (
               <ProductNotFound clearFilters={clearFilters} />
             ) : (

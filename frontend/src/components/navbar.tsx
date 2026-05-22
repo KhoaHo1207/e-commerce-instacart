@@ -1,4 +1,5 @@
 import useCart from "@/hooks/use-cart";
+import type { User } from "@/types";
 import { cn } from "@/utils/cn";
 import {
   ArrowRightIcon,
@@ -40,13 +41,11 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
 
-  //   const user: User = {
-  //     name: "John Doe",
-  //     email: "john.doe@example.com",
-  //     isAdmin: true,
-  //   };
-
-  const user = null;
+  const user: User = {
+    name: "Khoa Ho",
+    email: "khoa@gmail.com",
+    isAdmin: true,
+  };
 
   const { cartCount, setIsCartOpen } = useCart();
 

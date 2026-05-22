@@ -1,5 +1,5 @@
 import { dummyProducts } from "@/assets/assets";
-import SpinLoading from "@/components/loading/spin-loading";
+import LoadingSpin from "@/components/loading/loading-spin";
 import ProductCard from "@/components/product-card";
 import type { Product } from "@/types";
 import { handleMessageError } from "@/utils/error";
@@ -48,7 +48,7 @@ export default function FlashDealPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {loading ? (
-          <SpinLoading />
+          <LoadingSpin />
         ) : products.length === 0 ? (
           <div className="py-16 text-center">
             <Zap className="text-app-border mx-auto mb-4 size-16" />
