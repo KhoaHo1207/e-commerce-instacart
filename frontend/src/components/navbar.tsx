@@ -185,7 +185,7 @@ export default function Navbar() {
                         </Link>
                       )}
                       {user && (
-                        <Link to={"/my-order"} className="dropdown-link">
+                        <Link to={"/my-orders"} className="dropdown-link">
                           <PackageIcon size={16} />
                           My Orders
                         </Link>

@@ -895,7 +895,7 @@ export const dummyDashboardOrdersData = [
       email: "rahul@example.com",
       phone: "987654321",
     },
-    deliveryOtp: "",
+    deliveryOtp: "999999",
     isPaid: false,
     createdAt: "2026-04-06T07:53:05.774Z",
     updatedAt: "2026-04-06T08:47:28.984Z",
