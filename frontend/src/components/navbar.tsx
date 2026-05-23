@@ -46,7 +46,6 @@ export default function Navbar() {
     email: "khoa@gmail.com",
     isAdmin: true,
   };
-
   const { cartCount, setIsCartOpen } = useCart();
 
   const navigate = useNavigate();
@@ -177,7 +176,10 @@ export default function Navbar() {
                       </div>
                     )}
 
-                    <button onClick={() => setUserMenuOpen(false)} className="">
+                    <button
+                      onClick={() => setUserMenuOpen(false)}
+                      className="w-full"
+                    >
                       {!user && (
                         <Link to={"/sign-in"} className="dropdown-link">
                           <UserIcon size={16} />

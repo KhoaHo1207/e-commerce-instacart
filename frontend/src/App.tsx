@@ -35,7 +35,7 @@ export default function App() {
 
         <Route element={<AppLayout />}>
           <Route element={<ProtectedLayout />}>
-            <Route path="/check-out" element={<CheckOutPage />} />
+            <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/my-orders" element={<MyOrderPage />} />
             <Route path="/order-tracking/:id" element={<OrderTrackingPage />} />
             <Route path="/address" element={<AddressPage />} />
