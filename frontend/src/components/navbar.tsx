@@ -212,7 +212,7 @@ export default function Navbar() {
                       </Link>
 
                       {user?.isAdmin && (
-                        <Link to={"/admin/products"} className="dropdown-link">
+                        <Link to={"/admin"} className="dropdown-link">
                           <ShieldIcon
                             size={16}
                             className="text-app-orange-dark"
