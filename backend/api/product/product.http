@@ -1,0 +1,66 @@
+# Get all products
+GET http://localhost:5000/api/v1/products
+
+### Get all products with pagination
+GET http://localhost:5000/api/v1/products?page=1&limit=10
+
+### Get all products with pagination and category
+GET http://localhost:5000/api/v1/products?page=1&limit=10&category=fruit
+
+### Get all products with pagination and category and search
+GET http://localhost:5000/api/v1/products?page=1&limit=10&category=fruit&search=apple
+
+### Get all products with pagination and category and search and sort
+GET http://localhost:5000/api/v1/products?page=1&limit=10&category=fruit&search=apple&sort=price_asc
+
+### Get all products with pagination and category and search and sort and minPrice and maxPrice
+GET http://localhost:5000/api/v1/products?page=1&limit=10&category=fruit&search=apple&sort=price_asc&minPrice=10&maxPrice=100
+
+### Get all products with pagination and category and search and sort and minPrice and maxPrice and limit
+GET http://localhost:5000/api/v1/products?page=1&limit=10&category=fruit&search=apple&sort=price_asc&minPrice=10&maxPrice=100&limit=10
+
+### Get Flash Deals
+GET http://localhost:5000/api/v1/products/flash-deals
+
+### Get product by id
+GET http://localhost:5000/api/v1/products/1
+
+### Create product
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZDJhZGM4Yy1iZmMyLTRlY2MtYmY1ZC1iYWZmZWRmMDdiNzkiLCJpYXQiOjE3Nzk3MDQ1MzQsImV4cCI6MTc3OTcwNTQzNH0.TozmF4qiJOAe5O27lmFLYl3vYj5b-8B5yUbALWfFGBU
+POST http://localhost:5000/api/v1/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Product 1",    
+    "description": "Description 1",
+    "price": 100,
+    "originalPrice": 100,
+    "image": "https://via.placeholder.com/150",
+    "category": "fruit",
+    "unit": "piece",
+    "stock": 100,
+    "isOrganic": true,
+    "rating": 5,
+    "reviewCount": 10
+} 
+
+### Update product
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZDJhZGM4Yy1iZmMyLTRlY2MtYmY1ZC1iYWZmZWRmMDdiNzkiLCJpYXQiOjE3Nzk3MDQ1MzQsImV4cCI6MTc3OTcwNTQzNH0.TozmF4qiJOAe5O27lmFLYl3vYj5b-8B5yUbALWfFGBU
+PUT http://localhost:5000/api/v1/products/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Product 1",
+    "description": "Description 1",
+    "price": 100,
+    "originalPrice": 100,
+    "image": "https://via.placeholder.com/150",     
+    "category": "fruit",
+    "unit": "piece",
+    "stock": 100,
+    "isOrganic": true,
+    "rating": 5,
+    "reviewCount": 10
+}
