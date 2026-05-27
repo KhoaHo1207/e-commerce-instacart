@@ -101,7 +101,11 @@ const sendMonthlyOffers = inngest.createFunction(
   {
     id: "send-monthly-offers",
     name: "Monthly Payday Offers",
-    triggers: [cron("0 10 1 * *")],
+    triggers: [
+      {
+        cron: "0 10 1 * *",
+      },
+    ],
   },
   async ({ step }) => {
     const { deals, users } = await step.run(
@@ -143,7 +147,7 @@ const sendMonthlyOffers = inngest.createFunction(
 
     let sentCount = 0;
 
-    //Send in batches of 10 too avoid overwhelming mail server
+    // Send in batches of 10 to avoid overwhelming mail server
     const batchSize = 10;
     for (let i = 0; i < users.length; i += batchSize) {
       const batch = users.slice(i, i + batchSize);
