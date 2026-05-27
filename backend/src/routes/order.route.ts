@@ -6,7 +6,7 @@ import {
   getUserOrders,
   updateOrder,
   getOrderLocation,
-} from "../controller/order.controller.js";
+} from "../controllers/order.controller.js";
 import validate from "../middlewares/validate.middleware.js";
 import {
   createOrderSchema,

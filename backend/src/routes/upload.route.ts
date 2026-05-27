@@ -1,10 +1,9 @@
 import { Request, Response, Router } from "express";
 import multer from "multer";
-import { authMiddleware, isAdmin } from "../middlewares/auth.middleware.js";
-import asyncHandler from "../utils/asyncHanlder.js";
-import { ApiError } from "../utils/ApiError.js";
 import cloudinary from "../config/cloudinary.js";
-import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/client";
+import { authMiddleware, isAdmin } from "../middlewares/auth.middleware.js";
+import { ApiError } from "../utils/ApiError.js";
+import asyncHandler from "../utils/asyncHanlder.js";
 
 const uploadRoutes = Router();
 

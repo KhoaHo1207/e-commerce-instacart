@@ -14,7 +14,7 @@ import {
   getProductById,
   getProducts,
   getFlashDeals,
-} from "../controller/product.controller.js";
+} from "../controllers/product.controller.js";
 import { authMiddleware, isAdmin } from "../middlewares/auth.middleware.js";
 
 const productRoutes = Router();
