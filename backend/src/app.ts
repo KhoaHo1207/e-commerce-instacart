@@ -11,6 +11,7 @@ import productRoutes from "./routes/product.route.js";
 import uploadRoutes from "./routes/upload.route.js";
 import orderRoutes from "./routes/order.route.js";
 import addressRoutes from "./routes/address.route.js";
+import adminRoutes from "./routes/admin.route.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/uploads", uploadRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/addresses", addressRoutes);
+app.use("/api/v1/admin", adminRoutes);
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
 //Middlewares
